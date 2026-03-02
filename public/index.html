@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Tile Trial - Visualize Your Floor</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <h1>🏠 Tile Trial</h1>
+            <p class="subtitle">See how tiles look on your floor</p>
+        </header>
+
+        <!-- Step Indicator -->
+        <div class="steps-indicator">
+            <div class="step active" data-step="1">
+                <span class="step-num">1</span>
+                <span class="step-label">Photo</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="2">
+                <span class="step-num">2</span>
+                <span class="step-label">Tile</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="3">
+                <span class="step-num">3</span>
+                <span class="step-label">Result</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Capture Floor Photo -->
+        <section id="step1" class="step-section active">
+            <h2>📷 Take a photo of your floor</h2>
+            <p class="hint">Point camera at the floor area where you want to visualize tiles</p>
+
+            <div class="photo-area">
+                <div id="photoPreview" class="photo-preview hidden">
+                    <img id="previewImg" alt="Floor preview" />
+                    <button id="retakeBtn" class="btn btn-secondary">↻ Retake</button>
+                </div>
+
+                <!-- Live camera view -->
+                <div id="cameraView" class="camera-view hidden">
+                    <video id="cameraVideo" autoplay playsinline></video>
+                    <button id="snapBtn" class="snap-btn">
+                        <span class="snap-circle"></span>
+                    </button>
+                </div>
+                <canvas id="cameraCanvas" class="hidden"></canvas>
+
+                <div id="captureArea" class="capture-area">
+                    <button id="openCameraBtn" class="camera-btn" type="button">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                            <circle cx="12" cy="13" r="4" />
+                        </svg>
+                        <span>📷 Open Camera</span>
+                    </button>
+                    <div class="or-divider"><span>or</span></div>
+                    <label for="cameraInput" class="upload-btn btn btn-secondary">
+                        📁 Upload from Gallery
+                    </label>
+                    <input type="file" id="cameraInput" accept="image/*" class="hidden-input" />
+                </div>
+            </div>
+
+            <button id="nextToStep2" class="btn btn-primary full-width" disabled>
+                Continue → Choose Tile
+            </button>
+        </section>
+
+        <!-- Step 2: Choose Tile -->
+        <section id="step2" class="step-section">
+            <h2>🪨 Choose a tile</h2>
+            <p class="hint">Select a tile style you'd like to try</p>
+
+            <div id="tileGrid" class="tile-grid">
+                <!-- Tiles will be dynamically inserted -->
+            </div>
+
+            <div class="step-actions">
+                <button id="backToStep1" class="btn btn-secondary">← Back</button>
+                <button id="generateBtn" class="btn btn-primary" disabled>
+                    ✨ Generate Preview
+                </button>
+            </div>
+        </section>
+
+        <!-- Step 3: Result -->
+        <section id="step3" class="step-section">
+            <h2>✨ Your Floor Preview</h2>
+
+            <div id="loadingState" class="loading-state hidden">
+                <div class="spinner"></div>
+                <p>AI is generating your floor preview...</p>
+                <p class="hint">This may take 15-30 seconds</p>
+            </div>
+
+            <div id="resultArea" class="result-area hidden">
+                <div class="result-image-container">
+                    <img id="resultImage" alt="Generated preview" />
+                </div>
+                <p id="resultDescription" class="result-description"></p>
+            </div>
+
+            <div id="errorState" class="error-state hidden">
+                <p>⚠️ <span id="errorMsg"></span></p>
+            </div>
+
+            <div class="step-actions">
+                <button id="backToStep2" class="btn btn-secondary">← Try Another Tile</button>
+                <button id="startOver" class="btn btn-primary">🔄 Start Over</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
