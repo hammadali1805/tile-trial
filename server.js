@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json({ limit: "20mb" }));
 
 // Initialize Gemini
+console.log(process.env.GEMINI_API_KEY)
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Serve sample tile images from the tiles directory
