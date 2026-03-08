@@ -50,7 +50,7 @@ app.post("/api/generate", upload.single("floorPhoto"), async (req, res) => {
 
     // Use Gemini 2.0 Flash with image generation
     const model = genAI.getGenerativeModel({
-      model: "gemini-3.1-flash-image-preview",
+      model: "gemini-2.5-flash-image",
       generationConfig: {
         responseModalities: ["Text", "Image"],
       },
